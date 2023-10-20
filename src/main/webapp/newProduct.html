@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>.:ToyStore - Novo:.</title>
+</head>
+<body>
+
+	<a href="home">Home</a>
+	<a href="categories">Categorias</a>
+	<a href="./newProduct.html">Novo produto</a>
+	
+	<div class="container">
+
+			<form class="form-registry" name="frmNewProduct" action="insertProduct">
+
+				<div class="field">
+					<label>Nome do brinquedo: </label> <input type="text" name="name"
+						class="text-field" />
+				</div>
+
+				<div class="field">
+					<label>Valor: </label> <input type="number" name="price"
+						class="text-field" /> 
+				</div>
+				
+				<div class="field">
+					<label>Categoria: </label> <input type="text" name="category"
+						class="text-field" /> 
+				</div>
+				
+				<div class="field">
+					<label>Descrição: </label> <input type="text" name="description"
+						class="text-field" /> 
+				</div>
+
+			</form>
+
+			<div class="buttons">
+				<button class="btn-save" onclick="validateNewProduct()">Salvar</button>
+			</div>
+		</main>
+	</div>
+
+	<script src="scripts/scripts.js" defer></script>
+</body>
+</html>

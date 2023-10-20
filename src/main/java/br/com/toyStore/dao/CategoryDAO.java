@@ -24,8 +24,7 @@ public class CategoryDAO {
 	public void insert(Category category) {
 		try {
 			if (category != null) {
-				String SQL = "INSERT INTO TOY_STORE.CATEGORY (NAME_CATEGORY) values "
-						+ "(?)";
+				String SQL = "INSERT INTO TOY_STORE.CATEGORY (NAME_CATEGORY) values (?)";
 				ps = conn.prepareStatement(SQL);
 				ps.setString(1, category.getName());
 				ps.executeUpdate();
@@ -73,6 +72,31 @@ public class CategoryDAO {
 		}
 	}
 
+	public Category findByName(String idCategory) {
+
+		try {
+			String SQL = "SELECT * FROM TOY_STORE.CATEGORY AS CAT WHERE CAT.NAME_CATEGORY =?";
+			ps = conn.prepareStatement(SQL);
+			ps.setString(1, idCategory);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				long id = rs.getInt("id_category");
+				String name = rs.getString("name_category");
+
+				category = new Category();
+				category.setId(id);
+				category.setName(name);
+			
+			}
+			return category;
+		} catch (SQLException sqle) {
+			throw new DbException(sqle.getMessage());
+		} finally {
+			ConnectionFactory.closeResultSet(rs);
+			ConnectionFactory.closeStatement(ps);
+		}
+	}
+	
 	public Category findById(int idCategory) {
 
 		try {
@@ -81,8 +105,8 @@ public class CategoryDAO {
 			ps.setInt(1, idCategory);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				long id = rs.getInt("id_product");
-				String name = rs.getString("name_product");
+				long id = rs.getInt("id_category");
+				String name = rs.getString("name_category");
 
 				category = new Category();
 				category.setId(id);

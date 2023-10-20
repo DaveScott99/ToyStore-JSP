@@ -11,6 +11,7 @@
 	
 	<a href="home">Home</a>
 	<a href="categories">Categorias</a>
+	<a href="./newProduct.html">Novo produto</a>
 	
 	<%out.print(request.getAttribute("name_product"));%>
 	<%out.print(request.getAttribute("price_product"));%>

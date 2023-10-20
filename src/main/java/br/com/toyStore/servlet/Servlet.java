@@ -17,7 +17,7 @@ import br.com.toyStore.model.Category;
 import br.com.toyStore.model.Product;
 import br.com.toyStore.util.ConnectionFactory;
 
-@WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", "/selectProduct", "/selectCategory"})
+@WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", "/selectProduct", "/selectCategory", "/insertProduct"})
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -45,7 +45,36 @@ public class Servlet extends HttpServlet {
 		else if (action.equals("/selectProduct")) {
 			selectProduct(request, response);
 		}
+		else if (action.equals("/insertProduct")) {
+			insertProduct(request, response);
+		}
 		
+	}
+	
+	private void insertProduct(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			product.setName(request.getParameter("name"));
+			product.setPrice(Double.parseDouble(request.getParameter("price")));
+			product.setDescription(request.getParameter("description"));
+			
+			Category cat = categoryDao.findByName(request.getParameter("category"));
+			
+			if (cat != null) {
+				product.setCategory(cat);
+				productDao.insert(product);
+			}
+			else {
+				Category newCategory = new Category();
+				newCategory.setName(request.getParameter("category"));
+				categoryDao.insert(newCategory);
+				product.setCategory(categoryDao.findByName(request.getParameter("category")));
+				productDao.insert(product);
+			}		
+			response.sendRedirect("home");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	protected void findAllProducts(HttpServletRequest request, HttpServletResponse response) {

@@ -30,7 +30,7 @@ public class ProductDAO {
 				ps.setString(1, product.getName());
 				ps.setDouble(2, product.getPrice());
 				ps.setString(3, product.getDescription());
-				ps.setLong(5, product.getCategory().getId());
+				ps.setLong(4, product.getCategory().getId());
 				ps.executeUpdate();
 			}
 
