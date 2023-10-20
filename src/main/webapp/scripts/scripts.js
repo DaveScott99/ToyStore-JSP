@@ -3,6 +3,27 @@
  * @author Davi
  */
 
+function validateUserLogin() {
+	
+	let username = frmLoginUser.username.value;
+	let password = frmLoginUser.password.value;
+
+	if (username === "") {
+		window.alert("Preencha o campo Usuário");
+		frmLoginUser.name.focus();
+		return false;
+	}
+	else if (password === "") {
+		window.alert("Preencha o campo Senha");
+		frmLoginUser.password.focus();
+		return false;
+	}
+	else {
+		document.forms["frmLoginUser"].submit();
+	}
+	
+}
+
  function validateNewProduct() {
 	let name = frmNewProduct.name.value;
 	let price = frmNewProduct.price.value;
@@ -11,22 +32,22 @@
 
 	if (name === "") {
 		window.alert("Preencha o campo Nome");
-		frmAluno.name.focus();
+		frmNewProduct.name.focus();
 		return false;
 	}
 	else if (price === "") {
 		window.alert("Preencha o campo Valor");
-		frmAluno.email.focus();
+		frmNewProduct.price.focus();
 		return false;
 	}
 	else if (category === "") {
 		window.alert("Preencha o campo Categoria");
-		frmAluno.address.focus();
+		frmNewProduct.category.focus();
 		return false;
 	}
 	else if (description === "") {
 		window.alert("Preencha o campo Descrição");
-		frmAluno.address.focus();
+		frmNewProduct.description.focus();
 		return false;
 	}
 	

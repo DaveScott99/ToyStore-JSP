@@ -9,20 +9,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.toyStore.dao.CategoryDAO;
 import br.com.toyStore.dao.ProductDAO;
+import br.com.toyStore.dao.UserDAO;
 import br.com.toyStore.exception.DbException;
 import br.com.toyStore.model.Category;
 import br.com.toyStore.model.Product;
+import br.com.toyStore.model.User;
 import br.com.toyStore.util.ConnectionFactory;
 
-@WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", "/selectProduct", "/selectCategory", "/insertProduct"})
+@WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
+			"/selectProduct", "/selectCategory", "/insertProduct", "/login"})
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
 	ProductDAO productDao = new ProductDAO(ConnectionFactory.getConnection());
 	CategoryDAO categoryDao = new CategoryDAO(ConnectionFactory.getConnection());
+	UserDAO userDao = new UserDAO(ConnectionFactory.getConnection());
 	Product product = new Product();
 	
     public Servlet() throws Exception{
@@ -48,10 +53,43 @@ public class Servlet extends HttpServlet {
 		else if (action.equals("/insertProduct")) {
 			insertProduct(request, response);
 		}
+		else if (action.equals("/login")) {
+			login(request, response);
+		}
 		
 	}
 	
-	private void insertProduct(HttpServletRequest request, HttpServletResponse response) {
+	protected void login(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			User loginUser = userDao.findByUsername(username);
+			
+			if (loginUser != null) {
+				if (loginUser.getUsername().equals(username) && loginUser.getPassword().equals(password)) {
+					HttpSession session = request.getSession();
+					
+					session.setAttribute("username", username);
+					response.sendRedirect("Admin.jsp");
+				}
+				else {
+					response.sendRedirect("Login.jsp");
+				}
+			}
+			else {
+				response.sendRedirect("Login.jsp");
+			}
+			
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	protected void insertProduct(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			product.setName(request.getParameter("name"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
