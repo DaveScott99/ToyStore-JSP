@@ -63,11 +63,11 @@ public class ProductDAO {
 		}
 	}
 
-	public void delete(Integer raAluno) {
+	public void delete(Integer idProduct) {
 		try {
 			String SQL = "DELETE FROM TOY_STORE.PRODUCT AS PROD WHERE PROD.ID_PRODUCT =?";
 			ps = conn.prepareStatement(SQL);
-			ps.setInt(1, raAluno);
+			ps.setInt(1, idProduct);
 			ps.executeUpdate();
 		} catch (SQLException sqle) {
 			throw new DbException("Erro ao excluir dados " + sqle);
@@ -96,6 +96,36 @@ public class ProductDAO {
 				product.setDescription(description);
 			}
 			return product;
+		} catch (SQLException sqle) {
+			throw new DbException(sqle.getMessage());
+		} finally {
+			ConnectionFactory.closeResultSet(rs);
+			ConnectionFactory.closeStatement(ps);
+		}
+	}
+	
+	public List<Product> findProductsByCategory(int idCategory) {
+		try {
+			String SQL = "SELECT * FROM TOY_STORE.PRODUCT AS PROD INNER JOIN TOY_STORE.CATEGORY AS CAT ON PROD.ID_CATEGORY = CAT.ID_CATEGORY WHERE PROD.ID_CATEGORY = ?";
+			ps = conn.prepareStatement(SQL);
+			ps.setInt(1, idCategory);
+			rs = ps.executeQuery();
+			List<Product> list = new ArrayList<Product>();
+			while (rs.next()) {
+				long id = rs.getInt("id_product");
+				String name = rs.getString("name_product");
+				String description = rs.getString("description_product");
+				double price = rs.getDouble("price_product");
+				
+				product = new Product();
+				product.setId(id);
+				product.setName(name);
+				product.setPrice(price);
+				product.setDescription(description);
+
+				list.add(product);
+			}
+			return list;
 		} catch (SQLException sqle) {
 			throw new DbException(sqle.getMessage());
 		} finally {

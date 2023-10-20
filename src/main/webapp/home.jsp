@@ -9,7 +9,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
-<title>.:ToyStore - Catálogo:.</title>
+<title>.:ToyStore - Home:.</title>
 </head>
 <body>
 	
