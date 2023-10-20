@@ -21,7 +21,7 @@ import br.com.toyStore.model.User;
 import br.com.toyStore.util.ConnectionFactory;
 
 @WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
-			"/selectProduct", "/selectCategory", "/insertProduct", "/login"})
+			"/selectProduct", "/selectCategory", "/insertProduct", "/login", "/admin"})
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -56,6 +56,33 @@ public class Servlet extends HttpServlet {
 		else if (action.equals("/login")) {
 			login(request, response);
 		}
+		else if (action.equals("/admin")) {
+			admin(request, response);
+		}
+		
+	}
+	
+	protected void admin(HttpServletRequest request, HttpServletResponse response) {
+		
+		try {
+			HttpSession session = request.getSession();
+			
+			String user = (String) session.getAttribute("username");
+			
+			if (user != null) {
+				List<Product> products = productDao.findAllForAdmin();
+				request.setAttribute("products", products);
+				RequestDispatcher rd = request.getRequestDispatcher("Admin.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				response.sendRedirect("Login.jsp");
+			}
+			
+		}
+		catch (Exception e) {
+			throw new DbException(e.getMessage());
+		}
 		
 	}
 	
@@ -72,7 +99,11 @@ public class Servlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					
 					session.setAttribute("username", username);
-					response.sendRedirect("Admin.jsp");
+					
+					List<Product> products = productDao.findAllForAdmin();
+					request.setAttribute("products", products);
+					RequestDispatcher rd = request.getRequestDispatcher("Admin.jsp");
+					rd.forward(request, response);
 				}
 				else {
 					response.sendRedirect("Login.jsp");
@@ -83,8 +114,8 @@ public class Servlet extends HttpServlet {
 			}
 			
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (Exception e) {
+			throw new DbException(e.getMessage());
 		}
 		
 	}

@@ -8,9 +8,13 @@
 </head>
 <body>
 
-	<form action="login" name="frmLoginUser">
+	<form action="login" method="post" name="frmLoginUser">
 		Usuário: <br/><input type="text" name="username"/><br/>
-		Senha: <br/><input type="password" name="password"/><br/>
+		Senha: <br/><input type="password" name="password"/>
+		
+		<br/>		
+		<br/>
+	
 		<button onclick="validateUserLogin()">Logar</button>
 	</form>
 	

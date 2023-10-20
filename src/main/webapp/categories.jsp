@@ -15,8 +15,8 @@
 	
 	<a href="home">Home</a>
 	<a href="categories">Categorias</a>
-	<a href="./newProduct.html">Novo produto</a>
-	
+	<a href="Login.jsp">Administração</a>
+
 	<table>
 		<tbody>
 			<%

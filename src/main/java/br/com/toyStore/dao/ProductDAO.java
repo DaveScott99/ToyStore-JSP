@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.toyStore.exception.DbException;
+import br.com.toyStore.model.Category;
 import br.com.toyStore.model.Product;
 import br.com.toyStore.util.ConnectionFactory;
 
@@ -152,6 +153,39 @@ public class ProductDAO {
 				product.setPrice(price);
 				product.setDescription(description);
 				
+				list.add(product);
+			}
+			return list;
+		} catch (SQLException sqle) {
+			throw new DbException(sqle.getMessage());
+		} finally {
+			ConnectionFactory.closeResultSet(rs);
+			ConnectionFactory.closeStatement(ps);
+		}
+	}
+	
+	public List<Product> findAllForAdmin() {
+		try {
+			String SQL = "SELECT * FROM TOY_STORE.PRODUCT AS PROD INNER JOIN TOY_STORE.CATEGORY AS CAT ON PROD.ID_CATEGORY = CAT.ID_CATEGORY ORDER BY PROD.NAME_PRODUCT";
+			ps = conn.prepareStatement(SQL);
+			rs = ps.executeQuery();
+			List<Product> list = new ArrayList<Product>();
+			while (rs.next()) {
+				long id = rs.getInt("id_product");
+				String name = rs.getString("name_product");
+				String description = rs.getString("description_product");
+				double price = rs.getDouble("price_product");
+				
+				long idCategory = rs.getInt("id_category");
+				String nameCategory = rs.getString("name_category");
+				
+				product = new Product();
+				product.setId(id);
+				product.setName(name);
+				product.setPrice(price);
+				product.setDescription(description);
+				product.setCategory(new Category(idCategory, nameCategory));
+			
 				list.add(product);
 			}
 			return list;
