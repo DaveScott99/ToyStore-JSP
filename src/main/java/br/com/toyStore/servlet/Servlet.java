@@ -21,7 +21,8 @@ import br.com.toyStore.model.User;
 import br.com.toyStore.util.ConnectionFactory;
 
 @WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
-			"/selectProduct", "/selectCategory", "/insertProduct", "/login", "/admin"})
+			"/selectProduct", "/selectCategory", "/insertProduct", "/login", "/admin",
+			"/updateProduct", "/selectProductUpdate"})
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -58,6 +59,12 @@ public class Servlet extends HttpServlet {
 		}
 		else if (action.equals("/admin")) {
 			admin(request, response);
+		}
+		else if (action.equals("/selectProductUpdate")) {
+			selectProductForUpdate(request, response);
+		}
+		else if (action.equals("/updateProduct")) {
+			updateProduct(request, response);
 		}
 		
 	}
@@ -118,6 +125,33 @@ public class Servlet extends HttpServlet {
 			throw new DbException(e.getMessage());
 		}
 		
+	}
+	
+	protected void updateProduct(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			product.setId(Long.parseLong(request.getParameter("id_product")));
+			product.setName(request.getParameter("name"));
+			product.setPrice(Double.parseDouble(request.getParameter("price")));
+			product.setDescription(request.getParameter("description"));
+			
+			Category cat = categoryDao.findByName(request.getParameter("category"));
+			
+			if (cat != null) {
+				product.setCategory(cat);
+				productDao.update(product);
+			}
+			else {
+				Category newCategory = new Category();
+				newCategory.setName(request.getParameter("category"));
+				categoryDao.insert(newCategory);
+				product.setCategory(categoryDao.findByName(request.getParameter("category")));
+				productDao.update(product);
+			}		
+			response.sendRedirect("admin");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	protected void insertProduct(HttpServletRequest request, HttpServletResponse response) {
@@ -196,6 +230,22 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("description_product", product.getDescription());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
+		rd.forward(request, response);
+	}
+	
+	private void selectProductForUpdate(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException  {
+		
+		String idProduct = request.getParameter("idProduct");
+		product = productDao.findById(Integer.parseInt(idProduct));
+		
+		request.setAttribute("id_product", product.getId());
+		request.setAttribute("name_product", product.getName());
+		request.setAttribute("price_product", product.getPrice());
+		request.setAttribute("description_product", product.getDescription());
+		request.setAttribute("name_category", product.getCategory().getName());
+		
+		RequestDispatcher rd = request.getRequestDispatcher("UpdateProduct.jsp");
 		rd.forward(request, response);
 	}
 

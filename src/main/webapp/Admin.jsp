@@ -48,7 +48,7 @@
 						<td><%=product.getCategory().getName()%></td>
 						<td><%=product.getPrice()%></td>
 						<td>
-							<a href="selectProduct?idProduct=<%=product.getId()%>"
+							<a href="selectProductUpdate?idProduct=<%=product.getId()%>"
 								class="btn-edit">Editar</a>
 							<a
 							href="javascript: confirmation(<%=product.getId()%>)"
