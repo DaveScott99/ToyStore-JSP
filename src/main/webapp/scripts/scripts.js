@@ -56,10 +56,10 @@ function validateUserLogin() {
 	}
  }
  
-function confirmation(raAluno) {
+function deleteProduct(idProduct) {
 	 let response = confirm("Confirma a exclusão deste produto ?");
 	 
 	 if (response === true) {
-		window.location.href = "delete?raAluno=" + raAluno;
+		window.location.href = "deleteProduct?idProduct=" + idProduct;
 	 }
  }

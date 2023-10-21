@@ -10,6 +10,12 @@
 </head>
 <body>
 
+	<a href="home">Home</a>
+	<a href="categories">Categorias</a>
+	<a href="admin">Administração</a>
+	
+	<br />
+
 		<main>
 		
 			<form name="frmNewProduct" action="updateProduct">

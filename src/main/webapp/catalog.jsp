@@ -15,7 +15,7 @@
 	
 	<a href="home">Home</a>
 	<a href="categories">Categorias</a>
-	<a href="Login.jsp">Administração</a>
+	<a href="admin">Administração</a>
 				
 	<table>
 		

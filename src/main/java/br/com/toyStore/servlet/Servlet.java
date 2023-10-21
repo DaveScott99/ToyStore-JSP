@@ -22,7 +22,7 @@ import br.com.toyStore.util.ConnectionFactory;
 
 @WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
 			"/selectProduct", "/selectCategory", "/insertProduct", "/login", "/admin",
-			"/updateProduct", "/selectProductUpdate"})
+			"/updateProduct", "/selectProductUpdate", "/deleteProduct"})
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -65,6 +65,9 @@ public class Servlet extends HttpServlet {
 		}
 		else if (action.equals("/updateProduct")) {
 			updateProduct(request, response);
+		}
+		else if (action.equals("/deleteProduct")) {
+			deleteProduct(request, response);
 		}
 		
 	}
@@ -109,7 +112,7 @@ public class Servlet extends HttpServlet {
 					
 					List<Product> products = productDao.findAllForAdmin();
 					request.setAttribute("products", products);
-					RequestDispatcher rd = request.getRequestDispatcher("Admin.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("admin");
 					rd.forward(request, response);
 				}
 				else {
@@ -247,6 +250,13 @@ public class Servlet extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UpdateProduct.jsp");
 		rd.forward(request, response);
+	}
+	
+	private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String idProduct = request.getParameter("idProduct");
+		productDao.delete(Integer.parseInt(idProduct));
+		response.sendRedirect("admin");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

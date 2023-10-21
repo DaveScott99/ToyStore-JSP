@@ -17,7 +17,7 @@
 				
 	<a href="home">Home</a>
 	<a href="categories">Categorias</a>
-	<a href="Login.jsp">Administração</a>
+	<a href="admin">Administração</a>
 	
 	<br/>
 	<br/>
@@ -51,7 +51,7 @@
 							<a href="selectProductUpdate?idProduct=<%=product.getId()%>"
 								class="btn-edit">Editar</a>
 							<a
-							href="javascript: confirmation(<%=product.getId()%>)"
+							href="javascript: deleteProduct(<%=product.getId()%>)"
 							class="btn-delete">Excluir</a>
 						</td>
 					</tr>
@@ -70,6 +70,8 @@
 	<br/>
 	
 	<a href="Loggout.jsp">Deslogar</a>
+	
+	<script src="scripts/scripts.js" defer></script>
 
 </body>
 </html>
