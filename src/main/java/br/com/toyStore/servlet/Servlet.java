@@ -188,7 +188,7 @@ public class Servlet extends HttpServlet {
 		try {
 			List<Product> products = productDao.findAll();
 			request.setAttribute("products", products);
-			RequestDispatcher rd = request.getRequestDispatcher("catalog.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			throw new DbException(e.getMessage());
@@ -228,8 +228,10 @@ public class Servlet extends HttpServlet {
 		String idProduct = request.getParameter("idProduct");
 		product = productDao.findById(Integer.parseInt(idProduct));
 		
+		request.setAttribute("id_product", product.getId());
 		request.setAttribute("name_product", product.getName());
 		request.setAttribute("price_product", product.getPrice());
+		request.setAttribute("name_category", product.getCategory().getName());
 		request.setAttribute("description_product", product.getDescription());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");

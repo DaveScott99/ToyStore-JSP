@@ -10,64 +10,91 @@
 <html lang="pt-br">
 <head>
 <meta charset="utf-8">
-<title>.:ToyStore - Administração:.</title>
+<title>.:ToyStore:.</title>
+<link rel="stylesheet" type="text/css" href="css/styles.css"
+	media="screen" />
 </head>
 <body>
-	<h2>Administração</h2>
-				
-	<a href="home">Home</a>
-	<a href="categories">Categorias</a>
-	<a href="admin">Administração</a>
 	
-	<br/>
-	<br/>
-	
-	<table>
+	    <div class="container">
 		
-		<thead>
-			<tr>
-				<th>Descrição</th>
-				<th>Categoria</th>
-				<th>Valor</th>
-				<th>Controles</th>
-			</tr>
-		</thead>
+        <div class="content">
+            <header class="header">
+
+                <div class="brand">
+                    <h1>ToyStore</h1>
+                </div>
+    
+            </header>
+    
+            <main class="main">
+                
+                <div class="navigation">
+                    <h2>Catálogo de Brinqudos : : Admininstração</h2>
+                </div>
+
+                <table class="table-data">
+                    <thead>
+                        <tr>
+                            <th id="description">Descrição</th>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Controles</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+	                    <%
+							String user = (String) session.getAttribute("username");
+			
+							if (user == null) {
+								response.sendRedirect("Login.jsp");
+							}
+							else {
+								for (Product product : products) {
+								%>
+								<tr>
+									<td id="description"><%=product.getName()%></td>
+									<td><%=product.getCategory().getName()%></td>
+									<td><%=product.getPrice()%></td>
+									<td>
+										<a href="selectProductUpdate?idProduct=<%=product.getId()%>"
+											class="btn-edit">Editar</a>
+										<a
+										href="javascript: deleteProduct(<%=product.getId()%>)"
+										class="btn-delete">Excluir</a>
+									</td>
+								</tr>
+								<%
+								}
+							}
+						%>
+                    </tbody>
+                </table>
+
+                <a href="./newProduct.html" class="new-toy">
+                    <span>Novo Brinquedo</span>
+                </a>
+            </main>
+    
+        </div>
 		
-		<tbody>
-			<%
-				String user = (String) session.getAttribute("username");
+        <aside class="aside">
+            <div class="logo">
+                logo
+            </div>
 
-				if (user == null) {
-					response.sendRedirect("Login.jsp");
-				}
-				else {
-					for (Product product : products) {
-					%>
-					<tr>
-						<td><%=product.getName()%></td>
-						<td><%=product.getCategory().getName()%></td>
-						<td><%=product.getPrice()%></td>
-						<td>
-							<a href="selectProductUpdate?idProduct=<%=product.getId()%>"
-								class="btn-edit">Editar</a>
-							<a
-							href="javascript: deleteProduct(<%=product.getId()%>)"
-							class="btn-delete">Excluir</a>
-						</td>
-					</tr>
-					<%
-					}
-				}
-			%>
-		</tbody>
-	</table>
-
-	<br/>
-	
-	<a href="./newProduct.html">Novo produto</a>
-	
-	<br/>
-	<br/>
+           <nav class="menu">
+                <ul>
+                    <a href="home"><li class="menu-item">Home</li></a>
+                    <a href="categories"><li class="menu-item">Catálogo de Brinquedos</li></a>
+                    <a href="admin"><li class="menu-item">Administração</li></a>
+                    <a href="#"><li class="menu-item">Sobre a equipe</li></a>
+                </ul>
+            </nav>
+        </aside>
+		
+	</div>
 	
 	<a href="Loggout.jsp">Deslogar</a>
 	

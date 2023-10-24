@@ -5,66 +5,87 @@
 <head>
 <meta charset="UTF-8">
 <title>.:ToyStore:.</title>
-<link rel="stylesheet" type="text/css" href="./styles.css"
+<link rel="stylesheet" type="text/css" href="css/styles.css"
 	media="screen" />
 </head>
 <body>
-
-	<a href="home">Home</a>
-	<a href="categories">Categorias</a>
-	<a href="admin">Administração</a>
-	
-	<br />
-
-		<main>
 		
-			<form name="frmNewProduct" action="updateProduct">
+	<div class="container">
+		
+        <div class="content">
+            <header class="header">
 
-				<div class="field">
-					<label>Código: </label> 
-					<input type="number" name="id_product"
-						min="1" readonly="readonly"
-						value="<%out.print(request.getAttribute("id_product"));%>" /> 
-				</div>
-				
-				<div class="field">
-					<label>Nome: </label> 
-					<input type="text" name="name" 
-						value="<%out.print(request.getAttribute("name_product"));%>" />
-				</div>
-				
-				<div class="field">
-					<label>Categoria: </label> 
-					<input type="text" name="category" 
-						value="<%out.print(request.getAttribute("name_category"));%>" />
-				</div>
-				<div class="field">
-					<label>Marca: </label> 
-					<input type="text" name="name_brand" />
-				</div>
-				<div class="field">
-					<label>Imagem: </label> 
-					<input type="text" name="image" />
-				</div>
-				<div class="field">
-					<label>Valor: </label> 
-					<input type="number" name="price" 
-						value="<%out.print(request.getAttribute("price_product"));%>" />
-				</div>
-				<div class="field">
-					<label>Detalhes: </label> 
-					<input type="text" name="description" 
-						value="<%out.print(request.getAttribute("description_product"));%>" />
-				</div>
+                <div class="brand">
+                    <h1>ToyStore</h1>
+                </div>
+    
+            </header>
+    
+            <main class="main">
+                
+                <div class="navigation">
+                    <h2>Catálogo de Brinqudos : : Editar brinquedo</h2>
+                </div>
+
+                
+			<form class="form-registry" name="frmProduct" method="post">
+
+                <div class="form-controls">
+                    <div class="labels">
+                        <label>Código:</label>
+                        <label>Nome:</label>
+                        <label>Categoria:</label> 
+                        <label>Marca:</label> 
+                        <label>Imagem:</label> 
+                        <label>Valor:</label> 
+                        <label>Detalhes:</label> 
+                    </div>
+    
+                    <div class="inputs">
+                        <input type="number" name="code" class="text-field" id="code-field" min="1" readonly="readonly"
+                        value="<%out.print(request.getAttribute("id_product"));%>"/>
+                        
+                        <input type="text" name="name" class="text-field" 
+                        value="<%out.print(request.getAttribute("name_product"));%>"/> 
+                        
+                        <input type="text" name="category" class="text-field" 
+                        value="<%out.print(request.getAttribute("name_category"));%>"/>
+                        
+                        <input type="text" name="brand" class="text-field" />
+                        <input type="file" name="image" class="text-field" />
+                        
+                        <input type="number" name="value" class="text-field" id="value" 
+                        value="<%out.print(request.getAttribute("price_product"));%>"/>
+                        
+                        <textarea type="text" name="descritpion" class="text-field" placeholder="Escreva aqui os detalhes do brinquedo..." 
+                        ><%out.print(request.getAttribute("description_product"));%></textarea>
+                    </div>    
+                </div>
+
+                <button class="new-toy" onclick="validateNewProduct()">Salvar edição</button>
 
 			</form>
-			
-			<br />
 
-			<div>
-				<button onclick="validateNewProduct()">Salvar edição</button>
-			</div>
-		</main>
+            </main>
+    
+        </div>
+		
+        <aside class="aside">
+            <div class="logo">
+                logo
+            </div>
+            
+             <nav class="menu">
+                <ul>
+                    <a href="home"><li class="menu-item">Home</li></a>
+                    <a href="categories"><li class="menu-item">Catálogo de Brinquedos</li></a>
+                    <a href="admin"><li class="menu-item">Administração</li></a>
+                    <a href="#"><li class="menu-item">Sobre a equipe</li></a>
+                </ul>
+            </nav>
+        </aside>
+		
+	</div>
 
 	<script src="scripts/scripts.js" defer></script>
 </body>
