@@ -1,15 +1,22 @@
 package br.com.toyStore.servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import br.com.toyStore.dao.CategoryDAO;
 import br.com.toyStore.dao.ProductDAO;
@@ -21,8 +28,13 @@ import br.com.toyStore.model.User;
 import br.com.toyStore.util.ConnectionFactory;
 
 @WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
-			"/selectProduct", "/selectCategory", "/insertProduct", "/login", "/admin",
+			"/selectProduct", "/selectCategory", "/insertProduct", "/insertCategory", "/login", "/admin",
 			"/updateProduct", "/selectProductUpdate", "/deleteProduct"})
+@MultipartConfig(
+		  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+		  maxFileSize = 1024 * 1024 * 10,      // 10 MB
+		  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+		)
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
@@ -30,6 +42,9 @@ public class Servlet extends HttpServlet {
 	CategoryDAO categoryDao = new CategoryDAO(ConnectionFactory.getConnection());
 	UserDAO userDao = new UserDAO(ConnectionFactory.getConnection());
 	Product product = new Product();
+	Category category = new Category();
+	
+	final String IMAGES_PATH = "D:\\ARQUIVOS\\DevCompleto\\JAVA-WEB\\toy-store\\src\\main\\webapp\\assets\\"; 
 	
     public Servlet() throws Exception{
         super();
@@ -68,6 +83,9 @@ public class Servlet extends HttpServlet {
 		}
 		else if (action.equals("/deleteProduct")) {
 			deleteProduct(request, response);
+		}
+		else if (action.equals("/insertCategory")) {
+			insertCategory(request, response);
 		}
 		
 	}
@@ -162,7 +180,18 @@ public class Servlet extends HttpServlet {
 			product.setName(request.getParameter("name"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			product.setDescription(request.getParameter("description"));
-			
+						
+		    Part filePart = request.getPart("image");
+		    String fileName = filePart.getSubmittedFileName();
+            InputStream fileContent = filePart.getInputStream();
+
+            String uploadPath = IMAGES_PATH + fileName;
+
+            Path path = Paths.get(uploadPath);
+            Files.copy(fileContent, path, StandardCopyOption.REPLACE_EXISTING);
+	        
+	        product.setImageName(fileName);
+	        
 			Category cat = categoryDao.findByName(request.getParameter("category"));
 			
 			if (cat != null) {
@@ -175,12 +204,50 @@ public class Servlet extends HttpServlet {
 				categoryDao.insert(newCategory);
 				product.setCategory(categoryDao.findByName(request.getParameter("category")));
 				productDao.insert(product);
-			}		
-			response.sendRedirect("home");
+			}	
+			
+			try {
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			response.sendRedirect("admin");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	protected void insertCategory(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			category.setName(request.getParameter("name"));
+						
+		    Part filePart = request.getPart("image");
+		    String fileName = filePart.getSubmittedFileName();
+            InputStream fileContent = filePart.getInputStream();
+
+            String uploadPath = IMAGES_PATH + fileName;
+
+            Path path = Paths.get(uploadPath);
+            Files.copy(fileContent, path, StandardCopyOption.REPLACE_EXISTING);
+	        
+	        category.setImageName(fileName);
+	        
+	        categoryDao.insert(category);
+			
+			try {
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			response.sendRedirect("admin");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void findAllProducts(HttpServletRequest request, HttpServletResponse response) {
@@ -233,6 +300,7 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("price_product", product.getPrice());
 		request.setAttribute("name_category", product.getCategory().getName());
 		request.setAttribute("description_product", product.getDescription());
+		request.setAttribute("image_name", product.getImageName());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("product.jsp");
 		rd.forward(request, response);

@@ -1,14 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>  
-<%@ page import="br.com.toyStore.model.Product"%>
-<%@ page import="java.util.List"%>
-<%
-	List<Product> products = (List<Product>) request.getAttribute("products");
-%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>.:ToyStore:.</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css"
 	media="screen" />
@@ -29,28 +23,29 @@
             <main class="main">
                 
                 <div class="navigation">
-                    <h2>Brinquedos em Destaque</h2>
+                    <h2>Catálogo de Brinqudos : : Nova Categoria</h2>
                 </div>
 
-                <div class="l-cards">
                 
-                <%
-					for (Product product : products) {
-					%>
-						
-                       <article class="card">
-                       	<a href="selectProduct?idProduct=<%=product.getId()%>">
-                            <img src="assets/<%=product.getImageName()%>" alt="Imagem do produto" class="product-image"/>
-                            <h2 class="name"><%=product.getName()%></h2>
-                            <span class="price">R$ <%=product.getPrice()%></span>
-                        </a>
-                       </article>    
-                   	 	
-					<%
-					}
-				%>
-                
+			<form class="form-registry" name="frmNewCategory" action="insertCategory" method="post" enctype="multipart/form-data">
+
+                <div class="form-controls">
+                    <div class="labels">
+                        <label>Nome:</label>
+                        <label>Imagem:</label> 
+                    </div>
+    
+                    <div class="inputs">
+                        <input type="text" name="name" class="text-field" /> 
+                        <input type="file" name="image" class="text-field" />
+                    </div>    
                 </div>
+
+			</form>
+				
+			<div class="container-button-new-toy">
+				<button class="new-toy" onclick="validateNewCategory()">Salvar dados</button>
+			</div>
                 
             </main>
     
@@ -61,7 +56,7 @@
                 logo
             </div>
 
-            <nav class="menu">
+             <nav class="menu">
                 <ul>
                     <a href="home"><li class="menu-item">Home</li></a>
                     <a href="categories"><li class="menu-item">Catálogo de Brinquedos</li></a>
@@ -72,5 +67,8 @@
         </aside>
 		
 	</div>
+    
+	<script src="scripts/scripts.js" defer></script>
+
 </body>
 </html>

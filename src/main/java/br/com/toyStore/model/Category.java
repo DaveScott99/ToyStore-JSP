@@ -4,13 +4,15 @@ public class Category {
 
 	private Long id;
 	private String name;
+	private String imageName;
 		
 	public Category() {
 	}
 
-	public Category(Long id, String name) {
+	public Category(Long id, String name, String imageName) {
 		this.id = id;
 		this.name = name;
+		this.imageName = imageName;
 	}
 
 	public Long getId() {
@@ -29,4 +31,12 @@ public class Category {
 		this.name = name;
 	}
 
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	
 }

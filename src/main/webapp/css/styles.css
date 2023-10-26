@@ -132,17 +132,34 @@ a {
 .card {
     border-radius: 5px;
     max-width: 480px;
-    height: 480px;
-    padding: 5px;
     display: flex;
     align-items: center;
     flex-direction: column;
-
     cursor: pointer;
     transition: .3s;
-
     background: #FFF;
+    padding: 5px;
+}
 
+.card > a {
+	display: flex;
+	justify-content: cente;
+	align-content: cente;
+	flex-direction: column;
+} 
+
+.card > a > h2 { 
+	text-align: center;
+	margin-top: 5px;
+	font-size: 1.3em;
+	font-weight: 600;
+}
+
+.card > a > .price {
+	text-align: center;
+	margin-top: 5px;
+	font-size: 1em;
+	font-weight: 600;
 }
 
 .card:hover {
@@ -151,9 +168,9 @@ a {
     box-shadow: 0px 0px 30px -2px rgba(0, 0, 0, 0.09);
 }
 
-.card > .product-image {
+.product-image {
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     height: 410px;
     background-size: cover;
     object-fit: contain;
@@ -311,6 +328,13 @@ a {
 	background: red;
 }
 
+.container-button-new-toy {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+}
+
 .new-toy {
     padding: 10px;
     border-radius: 5px;
@@ -321,6 +345,19 @@ a {
     font-size: .9em;
     border: none;
 }
+
+.new-category {
+    padding: 10px;
+    border-radius: 5px;
+    background: blue;
+    color: #FFF;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: .9em;
+    border: none;
+    margin-left: 10px;
+}
+
 
 .form-registry {
 	display: flex;

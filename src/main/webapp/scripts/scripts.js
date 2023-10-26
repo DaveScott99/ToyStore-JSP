@@ -26,9 +26,10 @@ function validateUserLogin() {
 
  function validateNewProduct() {
 	let name = frmNewProduct.name.value;
-	let price = frmNewProduct.price.value;
 	let category = frmNewProduct.category.value;
+	let price = frmNewProduct.price.value;
 	let description = frmNewProduct.description.value;
+	let image = frmNewProduct.image.value;
 
 	if (name === "") {
 		window.alert("Preencha o campo Nome");
@@ -50,11 +51,34 @@ function validateUserLogin() {
 		frmNewProduct.description.focus();
 		return false;
 	}
-	
+	else if (image === "") {
+		window.alert("Selecione uma imagem para o produto");
+		frmNewProduct.description.focus();
+		return false;
+	}
 	else {
 		document.forms["frmNewProduct"].submit();
 	}
  }
+ 
+function validateNewCategory() {
+	let name = frmNewCategory.name.value;
+	let image = frmNewCategory.image.value;
+	
+	if (name === "") {
+		window.alert("Preencha o campo Nome");
+		frmNewCategory.name.focus();
+		return false;
+	}
+	else if (image === "") {
+		window.alert("Selecione uma imagem para a categoria");
+		frmNewCategory.description.focus();
+		return false;
+	}
+	else {
+		document.forms["frmNewCategory"].submit();
+	}
+}
  
 function deleteProduct(idProduct) {
 	 let response = confirm("Confirma a exclusão deste produto ?");

@@ -39,7 +39,7 @@
 					%>
 					<a href="selectCategory?idCategory=<%=cat.getId()%>">
                         <article class="card">
-                            <img src="https://m.media-amazon.com/images/I/81zdQczhOCL.jpg" alt="" class="product-image"/>
+                            <img src="assets/<%=cat.getImageName()%>" alt="" class="product-image"/>
                             <p><%=cat.getName()%></p>
                         </article>    
                     </a>

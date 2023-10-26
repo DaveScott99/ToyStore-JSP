@@ -27,7 +27,7 @@
                 </div>
 
                 
-			<form class="form-registry" name="frmProduct" method="post">
+			<form class="form-registry" name="frmNewProduct" action="insertProduct" method="post" enctype="multipart/form-data">
 
                 <div class="form-controls">
                     <div class="labels">
@@ -44,15 +44,16 @@
                         <input type="text" name="category" class="text-field" />
                         <input type="text" name="brand" class="text-field" />
                         <input type="file" name="image" class="text-field" />
-                        <input type="number" name="value" class="text-field" id="value"/>
-                        <textarea type="text" name="description" class="text-field" placeholder="Escreva aqui os detalhes do brinquedo..."></textarea>
+                        <input type="number" name="price" class="text-field" id="value"/>
+                        <textarea name="description" class="text-field" placeholder="Escreva aqui os detalhes do brinquedo..."></textarea>
                     </div>    
                 </div>
 
-                <button class="new-toy" onclick="validateNewProduct()">Salvar dados</button>
-
 			</form>
-
+				
+			<div class="container-button-new-toy">
+				<button class="new-toy" onclick="validateNewProduct()">Salvar dados</button>
+			</div>
                 
             </main>
     
@@ -75,7 +76,7 @@
 		
 	</div>
     
-
 	<script src="scripts/scripts.js" defer></script>
+
 </body>
 </html>

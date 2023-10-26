@@ -24,12 +24,12 @@ public class CategoryDAO {
 	public void insert(Category category) {
 		try {
 			if (category != null) {
-				String SQL = "INSERT INTO TOY_STORE.CATEGORY (NAME_CATEGORY) values (?)";
+				String SQL = "INSERT INTO TOY_STORE.CATEGORY (NAME_CATEGORY, IMAGE_NAME_CATEGORY) values (?, ?)";
 				ps = conn.prepareStatement(SQL);
 				ps.setString(1, category.getName());
+				ps.setString(2, category.getImageName());
 				ps.executeUpdate();
 			}
-
 		} catch (SQLException sqle) {
 			throw new DbException("Erro ao inserir dados " + sqle);
 		} finally {
@@ -82,10 +82,12 @@ public class CategoryDAO {
 			if (rs.next()) {
 				long id = rs.getInt("id_category");
 				String name = rs.getString("name_category");
-
+				String imageCategory = rs.getString("image_name_category");
+				
 				category = new Category();
 				category.setId(id);
 				category.setName(name);
+				category.setImageName(imageCategory);
 			
 			}
 			return category;
@@ -107,11 +109,12 @@ public class CategoryDAO {
 			if (rs.next()) {
 				long id = rs.getInt("id_category");
 				String name = rs.getString("name_category");
+				String imageCategory = rs.getString("image_name_category");
 
 				category = new Category();
 				category.setId(id);
 				category.setName(name);
-			
+				category.setImageName(imageCategory);
 			}
 			return category;
 		} catch (SQLException sqle) {
@@ -131,10 +134,12 @@ public class CategoryDAO {
 			while (rs.next()) {
 				long id = rs.getInt("id_category");
 				String name = rs.getString("name_category");
-			
+				String imageCategory = rs.getString("image_name_category");
+
 				category = new Category();
 				category.setId(id);
 				category.setName(name);
+				category.setImageName(imageCategory);
 
 				list.add(category);
 			}

@@ -75,6 +75,9 @@
                 <a href="./newProduct.html" class="new-toy">
                     <span>Novo Brinquedo</span>
                 </a>
+				<a href="./newCategory.html" class="new-category">
+                    <span>Nova Categoria</span>
+                </a>
             </main>
     
         </div>
@@ -95,9 +98,7 @@
         </aside>
 		
 	</div>
-	
-	<a href="Loggout.jsp">Deslogar</a>
-	
+		
 	<script src="scripts/scripts.js" defer></script>
 
 </body>

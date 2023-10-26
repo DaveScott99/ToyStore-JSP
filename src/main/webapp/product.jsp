@@ -31,7 +31,7 @@
 
                     <div class="product">
                         <div class="product-cover">
-                            <img src="https://m.media-amazon.com/images/I/81zdQczhOCL.jpg" alt="Imagem do produto">
+                            <img src="assets/<%out.print(request.getAttribute("image_name"));%>" alt="Imagem do produto">
                         </div>
     
                         <div class="product-info">

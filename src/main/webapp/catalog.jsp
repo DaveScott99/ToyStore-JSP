@@ -36,15 +36,14 @@
                 
                 <%
 					for (Product product : products) {
-					%>
-						
-						<a href="selectProduct?idProduct=<%=product.getId()%>">
-	                        <article class="card">
-	                            <img src="https://m.media-amazon.com/images/I/81zdQczhOCL.jpg" alt="" class="product-image"/>
-	                            <p><%=product.getName()%></p>
-	                            <p>R$ <%=product.getPrice()%></p>
-	                        </article>    
-                   	 	</a>
+					%>	
+						<article class="card">
+	                       	<a href="selectProduct?idProduct=<%=product.getId()%>">
+	                            <img src="assets/<%=product.getImageName()%>" alt="Imagem do produto" class="product-image"/>
+	                            <h2 class="name"><%=product.getName()%></h2>
+	                            <span class="price">R$ <%=product.getPrice()%></span>
+	                        </a>
+                       </article>    
 					<%
 					}
 				%>
