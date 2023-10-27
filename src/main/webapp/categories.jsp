@@ -37,12 +37,13 @@
                 <%
 				for (Category cat : categories) {
 					%>
-					<a href="selectCategory?idCategory=<%=cat.getId()%>">
-                        <article class="card">
+                    
+					<article class="card">
+                       	<a href="selectCategory?idCategory=<%=cat.getId()%>">
                             <img src="assets/<%=cat.getImageName()%>" alt="" class="product-image"/>
-                            <p><%=cat.getName()%></p>
-                        </article>    
-                    </a>
+                            <h2 class="name"><%=cat.getName()%></h2>
+                        </a>
+					</article>  
             
 					<%
 					}

@@ -29,7 +29,7 @@ import br.com.toyStore.util.ConnectionFactory;
 
 @WebServlet(urlPatterns = { "/Servlet", "/home", "/catalog", "/categories", 
 			"/selectProduct", "/selectCategory", "/insertProduct", "/insertCategory", "/login", "/admin",
-			"/updateProduct", "/selectProductUpdate", "/deleteProduct"})
+			"/updateProduct", "/selectProductUpdate", "/deleteProduct", "/newProduct"})
 @MultipartConfig(
 		  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
 		  maxFileSize = 1024 * 1024 * 10,      // 10 MB
@@ -87,7 +87,21 @@ public class Servlet extends HttpServlet {
 		else if (action.equals("/insertCategory")) {
 			insertCategory(request, response);
 		}
+		else if (action.equals("/newProduct")) {
+			newProduct(request, response);
+		}
 		
+	}
+	
+	protected void newProduct(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			List<Category> categories = categoryDao.findAll();
+			request.setAttribute("categories", categories);
+			RequestDispatcher rd = request.getRequestDispatcher("newProduct.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 	
 	protected void admin(HttpServletRequest request, HttpServletResponse response) {
@@ -150,24 +164,30 @@ public class Servlet extends HttpServlet {
 	
 	protected void updateProduct(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			product.setId(Long.parseLong(request.getParameter("id_product")));
+			product.setId(Long.parseLong(request.getParameter("code")));
 			product.setName(request.getParameter("name"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			product.setDescription(request.getParameter("description"));
+			product.setImageName(request.getParameter("image-name"));
 			
 			Category cat = categoryDao.findByName(request.getParameter("category"));
+			product.setCategory(cat);
 			
-			if (cat != null) {
-				product.setCategory(cat);
-				productDao.update(product);
-			}
-			else {
-				Category newCategory = new Category();
-				newCategory.setName(request.getParameter("category"));
-				categoryDao.insert(newCategory);
-				product.setCategory(categoryDao.findByName(request.getParameter("category")));
-				productDao.update(product);
-			}		
+		    Part filePart = request.getPart("image");
+	    	String fileName = filePart.getSubmittedFileName();
+
+		    if (filePart.getSize() == 0) {
+		    	 productDao.update(product);
+		    }
+		    else {
+		    	 InputStream fileContent = filePart.getInputStream();
+		    	 String uploadPath = IMAGES_PATH + fileName;
+		    	 Path path = Paths.get(uploadPath);
+		    	 Files .copy(fileContent, path, StandardCopyOption.REPLACE_EXISTING);
+		    	 product.setImageName(fileName);
+				 productDao.update(product);
+		    }
+			
 			response.sendRedirect("admin");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,18 +213,9 @@ public class Servlet extends HttpServlet {
 	        product.setImageName(fileName);
 	        
 			Category cat = categoryDao.findByName(request.getParameter("category"));
+			product.setCategory(cat);
 			
-			if (cat != null) {
-				product.setCategory(cat);
-				productDao.insert(product);
-			}
-			else {
-				Category newCategory = new Category();
-				newCategory.setName(request.getParameter("category"));
-				categoryDao.insert(newCategory);
-				product.setCategory(categoryDao.findByName(request.getParameter("category")));
-				productDao.insert(product);
-			}	
+			productDao.insert(product);
 			
 			try {
 				Thread.sleep(2000);
@@ -316,7 +327,11 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("name_product", product.getName());
 		request.setAttribute("price_product", product.getPrice());
 		request.setAttribute("description_product", product.getDescription());
+		request.setAttribute("image_product", product.getImageName());
 		request.setAttribute("name_category", product.getCategory().getName());
+		
+		List<Category> categories = categoryDao.findAll();
+		request.setAttribute("categories", categories);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UpdateProduct.jsp");
 		rd.forward(request, response);

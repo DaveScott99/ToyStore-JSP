@@ -1,15 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@page import="br.com.toyStore.model.Category"%>
+<%@ page import="java.util.List"%>
+<%
+	List<Category> categories = (List<Category>) request.getAttribute("categories");
+%>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
 <title>.:ToyStore:.</title>
 <link rel="stylesheet" type="text/css" href="css/styles.css"
 	media="screen" />
 </head>
 <body>
-	
-	<div class="container">
+
+<div class="container">
 		
         <div class="content">
             <header class="header">
@@ -41,7 +47,19 @@
     
                     <div class="inputs">
                         <input type="text" name="name" class="text-field" /> 
-                        <input type="text" name="category" class="text-field" />
+                        
+                        <select name="category" size="1" class="text-field">
+                        	
+                        	<option value="">Selecione uma categoria</option>
+                       	  <%
+							for (Category cat : categories) {
+								%>
+									<option value=<%=cat.getName()%>><%=cat.getName()%></option>
+								<%
+								}
+							%>
+                        </select>
+                        
                         <input type="text" name="brand" class="text-field" />
                         <input type="file" name="image" class="text-field" />
                         <input type="number" name="price" class="text-field" id="value"/>

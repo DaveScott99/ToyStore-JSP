@@ -26,7 +26,7 @@ function validateUserLogin() {
 
  function validateNewProduct() {
 	let name = frmNewProduct.name.value;
-	let category = frmNewProduct.category.value;
+	let category = frmNewProduct.category;
 	let price = frmNewProduct.price.value;
 	let description = frmNewProduct.description.value;
 	let image = frmNewProduct.image.value;
@@ -41,8 +41,8 @@ function validateUserLogin() {
 		frmNewProduct.price.focus();
 		return false;
 	}
-	else if (category === "") {
-		window.alert("Preencha o campo Categoria");
+	else if (category.options[category.selectedIndex].value === "") {
+		window.alert("Selecione uma categoria");
 		frmNewProduct.category.focus();
 		return false;
 	}
@@ -58,6 +58,37 @@ function validateUserLogin() {
 	}
 	else {
 		document.forms["frmNewProduct"].submit();
+	}
+ }
+ 
+  function validadeUpdateProduct() {
+	let name = frmUpdateProduct.name.value;
+	let category = frmUpdateProduct.category;
+	let price = frmUpdateProduct.price.value;
+	let description = frmUpdateProduct.description.value;
+
+	if (name === "") {
+		window.alert("Preencha o campo Nome");
+		frmNewProduct.name.focus();
+		return false;
+	}
+	else if (price === "") {
+		window.alert("Preencha o campo Valor");
+		frmNewProduct.price.focus();
+		return false;
+	}
+	else if (category.options[category.selectedIndex].value === "") {
+		window.alert("Selecione uma categoria");
+		frmNewProduct.category.focus();
+		return false;
+	}
+	else if (description === "") {
+		window.alert("Preencha o campo Descrição");
+		frmNewProduct.description.focus();
+		return false;
+	}
+	else {
+		document.forms["frmUpdateProduct"].submit();
 	}
  }
  

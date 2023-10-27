@@ -72,7 +72,7 @@
                     </tbody>
                 </table>
 
-                <a href="./newProduct.html" class="new-toy">
+                <a href="newProduct" class="new-toy">
                     <span>Novo Brinquedo</span>
                 </a>
 				<a href="./newCategory.html" class="new-category">

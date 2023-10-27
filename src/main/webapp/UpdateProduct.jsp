@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>	
+<%@page import="br.com.toyStore.model.Category"%>
+<%@ page import="java.util.List"%>
+<%
+	List<Category> categories = (List<Category>) request.getAttribute("categories");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +33,7 @@
                 </div>
 
                 
-			<form class="form-registry" name="frmProduct" method="post">
+			<form class="form-registry" name="frmUpdateProduct" method="post" action="updateProduct" enctype="multipart/form-data">
 
                 <div class="form-controls">
                     <div class="labels">
@@ -48,24 +53,38 @@
                         <input type="text" name="name" class="text-field" 
                         value="<%out.print(request.getAttribute("name_product"));%>"/> 
                         
-                        <input type="text" name="category" class="text-field" 
-                        value="<%out.print(request.getAttribute("name_category"));%>"/>
+                         <select name="category" size="1" class="text-field">
+                        	
+                        	<option value="<%out.print(request.getAttribute("name_category"));%>"><%out.print(request.getAttribute("name_category"));%></option>
+                       	  <%
+							for (Category cat : categories) {
+								%>
+									<option value=<%=cat.getName()%>><%=cat.getName()%></option>
+								<%
+								}
+							%>
+                        </select>
                         
                         <input type="text" name="brand" class="text-field" />
-                        <input type="file" name="image" class="text-field" />
                         
-                        <input type="number" name="value" class="text-field" id="value" 
+                        <input type="text" name="image-name" value="<%out.print(request.getAttribute("image_product"));%>" style="display: none">
+                        
+                        <input type="file" value="" name="image" class="text-field" />
+                        
+                        <input type="number" name="price" class="text-field" id="value" 
                         value="<%out.print(request.getAttribute("price_product"));%>"/>
                         
-                        <textarea type="text" name="descritpion" class="text-field" placeholder="Escreva aqui os detalhes do brinquedo..." 
+                        <textarea name="description" class="text-field" placeholder="Escreva aqui os detalhes do brinquedo..." 
                         ><%out.print(request.getAttribute("description_product"));%></textarea>
                     </div>    
                 </div>
 
-                <button class="new-toy" onclick="validateNewProduct()">Salvar edição</button>
-
 			</form>
-
+				
+			<div class="container-button-new-toy">
+				<button class="new-toy" onclick="validadeUpdateProduct()">Salvar edição</button>
+			</div>
+			
             </main>
     
         </div>
