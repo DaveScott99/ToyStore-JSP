@@ -30,7 +30,7 @@
             <main class="main">
                 
                 <div class="navigation">
-                    <h2>Catálogo de Brinqudos : : Admininstração</h2>
+                    <h2>Catálogo de Brinquedos : : Admininstração</h2>
                 </div>
 
                 <table class="table-data">

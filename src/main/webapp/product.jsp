@@ -24,7 +24,7 @@
             <main class="main">
 
                 <div class="navigation">
-                    <h2>Catálogo de Brinqudos : : <%out.print(request.getAttribute("name_category"));%> : : <%out.print(request.getAttribute("name_product"));%> </h2>
+                    <h2>Catálogo de Brinquedos : : <%out.print(request.getAttribute("name_category"));%> : : <%out.print(request.getAttribute("name_product"));%> </h2>
                 </div>
                
                 <article class="container-product">

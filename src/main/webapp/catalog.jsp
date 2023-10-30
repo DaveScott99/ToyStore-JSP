@@ -29,7 +29,7 @@
             <main class="main">
                 
                 <div class="navigation">
-					<h2>Catálogo de Brinqudos : : Nome da categoria</h2>
+					<h2>Catálogo de Brinquedos : : <%out.print(request.getAttribute("name_category"));%></h2>
                 </div>
 
                 <div class="l-cards">

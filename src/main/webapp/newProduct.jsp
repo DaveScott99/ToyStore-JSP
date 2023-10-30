@@ -29,7 +29,7 @@
             <main class="main">
                 
                 <div class="navigation">
-                    <h2>Catálogo de Brinqudos : : Novo brinquedo</h2>
+                    <h2>Catálogo de Brinquedos : : Novo brinquedo</h2>
                 </div>
 
                 

@@ -29,7 +29,7 @@
             <main class="main">
                               
                 <div class="navigation">
-                    <h2>Catálogo de Brinqudos : : Categorias</h2>
+                    <h2>Catálogo de Brinquedos : : Categorias</h2>
                 </div>
 
                 <div class="l-cards">
@@ -38,9 +38,9 @@
 				for (Category cat : categories) {
 					%>
                     
-					<article class="card">
+					<article class="card-category">
                        	<a href="selectCategory?idCategory=<%=cat.getId()%>">
-                            <img src="assets/<%=cat.getImageName()%>" alt="" class="product-image"/>
+                            <img src="assets/<%=cat.getImageName()%>" alt="" class="product-image-category"/>
                             <h2 class="name"><%=cat.getName()%></h2>
                         </a>
 					</article>  

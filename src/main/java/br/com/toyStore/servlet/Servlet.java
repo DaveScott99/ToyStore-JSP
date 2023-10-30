@@ -277,9 +277,14 @@ public class Servlet extends HttpServlet {
 	protected void findAllProductsByCategory(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
-			String idCategory = request.getParameter("idCategory");			
+			String idCategory = request.getParameter("idCategory");		
+			
+			Category cat = categoryDao.findById(Integer.parseInt(idCategory));
+			request.setAttribute("name_category", cat.getName());
+			
 			List<Product> products = productDao.findProductsByCategory(Integer.parseInt(idCategory));
 			request.setAttribute("products", products);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("catalog.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
