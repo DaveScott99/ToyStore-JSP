@@ -55,17 +55,17 @@
                         
                          <select name="category" size="1" class="text-field">
                         	
-                        	<option value="<%out.print(request.getAttribute("name_category"));%>"><%out.print(request.getAttribute("name_category"));%></option>
+                        	<option value="<%out.print(request.getAttribute("name_category"));%>" selected="selected"><%out.print(request.getAttribute("name_category"));%></option>
                        	  <%
 							for (Category cat : categories) {
 								%>
-									<option value=<%=cat.getName()%>><%=cat.getName()%></option>
+									<option><%=cat.getName()%></option>
 								<%
 								}
 							%>
                         </select>
                         
-                        <input type="text" name="brand" class="text-field" />
+                        <input type="text" name="brand" value="<%out.print(request.getAttribute("brand_product"));%>" class="text-field" />
                         
                         <input type="text" name="image-name" value="<%out.print(request.getAttribute("image_product"));%>" style="display: none">
                         

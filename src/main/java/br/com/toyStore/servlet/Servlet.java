@@ -169,6 +169,7 @@ public class Servlet extends HttpServlet {
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			product.setDescription(request.getParameter("description"));
 			product.setImageName(request.getParameter("image-name"));
+			product.setBrand(request.getParameter("brand"));
 			
 			Category cat = categoryDao.findByName(request.getParameter("category"));
 			product.setCategory(cat);
@@ -200,6 +201,7 @@ public class Servlet extends HttpServlet {
 			product.setName(request.getParameter("name"));
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			product.setDescription(request.getParameter("description"));
+			product.setBrand(request.getParameter("brand"));
 						
 		    Part filePart = request.getPart("image");
 		    String fileName = filePart.getSubmittedFileName();
@@ -334,6 +336,7 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("description_product", product.getDescription());
 		request.setAttribute("image_product", product.getImageName());
 		request.setAttribute("name_category", product.getCategory().getName());
+		request.setAttribute("brand_product", product.getBrand());
 		
 		List<Category> categories = categoryDao.findAll();
 		request.setAttribute("categories", categories);

@@ -28,6 +28,7 @@ function validateUserLogin() {
 	let name = frmNewProduct.name.value;
 	let category = frmNewProduct.category;
 	let price = frmNewProduct.price.value;
+	let brand = frmNewProduct.brand.value;
 	let description = frmNewProduct.description.value;
 	let image = frmNewProduct.image.value;
 
@@ -39,6 +40,11 @@ function validateUserLogin() {
 	else if (price === "") {
 		window.alert("Preencha o campo Valor");
 		frmNewProduct.price.focus();
+		return false;
+	}
+	else if (brand === "") {
+		window.alert("Preencha o campo Marca");
+		frmNewProduct.brand.focus();
 		return false;
 	}
 	else if (category.options[category.selectedIndex].value === "") {
@@ -53,7 +59,7 @@ function validateUserLogin() {
 	}
 	else if (image === "") {
 		window.alert("Selecione uma imagem para o produto");
-		frmNewProduct.description.focus();
+		frmNewProduct.image.focus();
 		return false;
 	}
 	else {
@@ -64,7 +70,8 @@ function validateUserLogin() {
   function validadeUpdateProduct() {
 	let name = frmUpdateProduct.name.value;
 	let category = frmUpdateProduct.category;
-	let price = frmUpdateProduct.price.value;
+	let price = frmUpdateProduct.price.value
+	let brand = frmUpdateProduct.brand.value;
 	let description = frmUpdateProduct.description.value;
 
 	if (name === "") {
@@ -75,6 +82,11 @@ function validateUserLogin() {
 	else if (price === "") {
 		window.alert("Preencha o campo Valor");
 		frmNewProduct.price.focus();
+		return false;
+	}
+	else if (brand === "") {
+		window.alert("Preencha o campo Marca");
+		frmUpdateProduct.brand.focus();
 		return false;
 	}
 	else if (category.options[category.selectedIndex].value === "") {

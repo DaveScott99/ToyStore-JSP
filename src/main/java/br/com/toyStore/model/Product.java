@@ -1,25 +1,32 @@
 package br.com.toyStore.model;
 
-public class Product {
+import java.io.Serializable;
 
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String name;
 	private Double price;
-	private String description;
 	private String imageName;
+	private String brand;
+	private String description;
 	
 	private Category category;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, Double price, String description, Category category, String imageName) {
+	public Product(Long id, String name, Double price, String imageName, String brand, String description,
+			Category category) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.imageName = imageName;
+		this.brand = brand;
 		this.description = description;
 		this.category = category;
-		this.imageName = imageName;
 	}
 
 	public Long getId() {
@@ -68,6 +75,14 @@ public class Product {
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 	
 }

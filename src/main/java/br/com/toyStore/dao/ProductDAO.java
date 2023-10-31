@@ -25,14 +25,15 @@ public class ProductDAO {
 	public void insert(Product product) {
 		try {
 			if (product != null) {
-				String SQL = "INSERT INTO TOY_STORE.PRODUCT (NAME_PRODUCT, PRICE_PRODUCT, DESCRIPTION_PRODUCT, IMAGE_NAME_PRODUCT, ID_CATEGORY) values "
-						+ "(?, ?, ?, ?, ?)";
+				String SQL = "INSERT INTO TOY_STORE.PRODUCT (NAME_PRODUCT, PRICE_PRODUCT, DESCRIPTION_PRODUCT, IMAGE_NAME_PRODUCT, BRAND_PRODUCT, ID_CATEGORY) values "
+						+ "(?, ?, ?, ?, ?, ?)";
 				ps = conn.prepareStatement(SQL);
 				ps.setString(1, product.getName());
 				ps.setDouble(2, product.getPrice());
 				ps.setString(3, product.getDescription());
 				ps.setString(4, product.getImageName());
-				ps.setLong(5, product.getCategory().getId());
+				ps.setString(5, product.getBrand());
+				ps.setLong(6, product.getCategory().getId());
 				ps.executeUpdate();
 			}
 
@@ -46,14 +47,15 @@ public class ProductDAO {
 	public void update(Product product) {
 		try {
 			if (product != null) {
-				String SQL = "UPDATE TOY_STORE.PRODUCT set NAME_PRODUCT=?, PRICE_PRODUCT=?, DESCRIPTION_PRODUCT=?, IMAGE_NAME_PRODUCT=?, ID_CATEGORY=? WHERE ID_PRODUCT=?";
+				String SQL = "UPDATE TOY_STORE.PRODUCT set NAME_PRODUCT=?, PRICE_PRODUCT=?, DESCRIPTION_PRODUCT=?, IMAGE_NAME_PRODUCT=?, ID_CATEGORY=?, BRAND_PRODUCT=? WHERE ID_PRODUCT=?";
 				ps = conn.prepareStatement(SQL);
 				ps.setString(1, product.getName());
 				ps.setDouble(2, product.getPrice());
 				ps.setString(3, product.getDescription());
 				ps.setString(4, product.getImageName());
 				ps.setLong(5, product.getCategory().getId());
-				ps.setLong(6, product.getId());
+				ps.setString(6, product.getBrand());
+				ps.setLong(7, product.getId());
 				ps.executeUpdate();
 			}
 
@@ -90,6 +92,7 @@ public class ProductDAO {
 				String description = rs.getString("description_product");
 				double price = rs.getDouble("price_product");
 				String image = rs.getString("image_name_product");
+				String brand = rs.getString("brand_product");
 
 				long idCategory = rs.getInt("id_category");
 				String nameCategory = rs.getString("name_category");
@@ -101,6 +104,8 @@ public class ProductDAO {
 				product.setPrice(price);
 				product.setDescription(description);
 				product.setImageName(image);
+				product.setBrand(brand);
+
 				product.setCategory(new Category(idCategory, nameCategory, imageCategory));
 			}
 			return product;
@@ -125,13 +130,15 @@ public class ProductDAO {
 				String description = rs.getString("description_product");
 				double price = rs.getDouble("price_product");
 				String image = rs.getString("image_name_product");
-
+				String brand = rs.getString("brand_product");
+				
 				product = new Product();
 				product.setId(id);
 				product.setName(name);
 				product.setPrice(price);
 				product.setDescription(description);
 				product.setImageName(image);
+				product.setBrand(brand);
 
 				list.add(product);
 			}
@@ -156,14 +163,16 @@ public class ProductDAO {
 				String description = rs.getString("description_product");
 				double price = rs.getDouble("price_product");
 				String image = rs.getString("image_name_product");
-
+				String brand = rs.getString("brand_product");
+				
 				product = new Product();
 				product.setId(id);
 				product.setName(name);
 				product.setPrice(price);
 				product.setDescription(description);
 				product.setImageName(image);
-
+				product.setBrand(brand);
+				
 				list.add(product);
 			}
 			return list;
@@ -192,6 +201,8 @@ public class ProductDAO {
 				String nameCategory = rs.getString("name_category");
 				String imageCategory = rs.getString("image_name_category");
 				
+				String brand = rs.getString("brand_product");
+				
 				product = new Product();
 				product.setId(id);
 				product.setName(name);
@@ -199,7 +210,8 @@ public class ProductDAO {
 				product.setDescription(description);
 				product.setImageName(image);
 				product.setCategory(new Category(idCategory, nameCategory, imageCategory));
-			
+				product.setBrand(brand);
+				
 				list.add(product);
 			}
 			return list;

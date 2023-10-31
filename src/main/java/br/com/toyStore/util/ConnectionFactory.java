@@ -20,7 +20,7 @@ private static Connection conn = null;
 				
 				String login = "root";
 				String senha = "1305";
-				String url = "jdbc:mysql://localhost:3306/TOY_STORE";
+				String url = "jdbc:mysql://localhost:3306/TOY_STORE?useUnicode=true&characterEncoding=UTF-8";
 				conn = DriverManager.getConnection(url,login,senha);
 			}
 			catch(SQLException e) {
