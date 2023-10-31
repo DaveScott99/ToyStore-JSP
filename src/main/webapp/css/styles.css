@@ -268,12 +268,13 @@ a {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 1215px;
+    max-width: 1400px;
 }
 
 .product-cover {
     width: 100%;
     max-width: 1215px;
+    margin-right: 20px;
 }
 
 .product > .product-cover > img {
@@ -281,7 +282,6 @@ a {
     height: 400px;
     background-size: cover;
     object-fit: contain;
-    margin-right: 10px;
 }
 
 .product > .product-info {
@@ -298,12 +298,13 @@ a {
 }
 
 .product > .product-info > .product-name {
-    font-size: 1.6em;
+    font-size: 1.2em;
     margin-bottom: 50px;
 }
 
 .product > .product-info > .product-price {
     font-weight: 700;
+    font-size: 2em;
 }
 
 .product-description {
