@@ -18,13 +18,7 @@
 	<div class="container">
 		
         <div class="content">
-            <header class="header">
-
-                <div class="brand">
-                    <h1>ToyStore</h1>
-                </div>
-    
-            </header>
+            
     
             <main class="main">
                 
@@ -57,9 +51,11 @@
         </div>
 		
         <aside class="aside">
-            <div class="logo">
-                logo
-            </div>
+        	<a href="home">
+	        	<div class="logo">
+	                <img alt="logo" src="imgs/ToyStore-logo.png">
+	            </div>
+        	</a>
 
             <nav class="menu">
                 <ul>

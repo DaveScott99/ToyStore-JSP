@@ -13,18 +13,15 @@
 	<div class="container">
 		
         <div class="content">
-            <header class="header">
-
-                <div class="brand">
-                    <h1>ToyStore</h1>
-                </div>
-    
-            </header>
     
             <main class="main">
 
                 <div class="navigation">
-                    <h2>Catálogo de Brinquedos : : <%out.print(request.getAttribute("name_category"));%> : : <%out.print(request.getAttribute("name_product"));%> </h2>
+                	<h2>Catálogo de Brinquedos</h2>
+                    <span>></span>
+                    <h2><%out.print(request.getAttribute("name_category"));%></h2>
+                    <span>></span>
+                    <h2><%out.print(request.getAttribute("name_product"));%></h2>
                 </div>
                
                 <article class="container-product">
@@ -58,9 +55,11 @@
         </div>
 		
         <aside class="aside">
-            <div class="logo">
-                logo
-            </div>
+        	<a href="home">
+	        	<div class="logo">
+	                <img alt="logo" src="imgs/ToyStore-logo.png">
+	            </div>
+        	</a>
 
            <nav class="menu">
                 <ul>
