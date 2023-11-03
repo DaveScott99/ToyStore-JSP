@@ -144,6 +144,13 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
+.l-cards-category {
+    padding: 30px;
+    display: grid;
+    grid-gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 .card {
     border-radius: 5px;
     max-width: 480px;
@@ -185,7 +192,7 @@ a {
 
 .card-category {
 	border-radius: 5px;
-    max-width: 230px;
+    max-width: 220px;
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="product-description">
-                        <p>Detalhes sobre o brinquedo: <%out.print(request.getAttribute("description_product"));%></p>
+                        <p><%out.print(request.getAttribute("description_product"));%></p>
                     </div>
 
                 </article>               

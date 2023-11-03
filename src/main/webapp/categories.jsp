@@ -27,7 +27,7 @@
                     <h2>Categorias</h2>
                 </div>
 
-                <div class="l-cards">
+                <div class="l-cards-category">
                 
                 <%
 				for (Category cat : categories) {
