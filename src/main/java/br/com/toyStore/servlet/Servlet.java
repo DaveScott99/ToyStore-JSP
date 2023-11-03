@@ -2,6 +2,7 @@ package br.com.toyStore.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,8 +130,9 @@ public class Servlet extends HttpServlet {
 	}
 	
 	protected void login(HttpServletRequest request, HttpServletResponse response) {
-		
 		try {
+			PrintWriter out = response.getWriter();
+
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			
@@ -148,11 +150,17 @@ public class Servlet extends HttpServlet {
 					rd.forward(request, response);
 				}
 				else {
-					response.sendRedirect("Login.jsp");
+					out.println("<script type=\"text/javascript\">");
+				    out.println("alert('Usuário ou Senha incorretos!');");
+				    out.println("location='Login.jsp';");
+				    out.println("</script>");
 				}
 			}
 			else {
-				response.sendRedirect("Login.jsp");
+				out.println("<script type=\"text/javascript\">");
+			    out.println("alert('Usuário não encontrado!');");
+			    out.println("location='Login.jsp';");
+			    out.println("</script>");
 			}
 			
 		}

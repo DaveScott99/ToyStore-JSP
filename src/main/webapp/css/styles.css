@@ -29,6 +29,24 @@
     background: #0071FF;
 }
 
+.container-index {
+	width: 100%;
+	height: 100vh;
+	background: #0071FF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.container-index > a {
+	padding: 20px 40px 20px 40px;
+	background: yellow;
+	border-radius: 5px;
+	font-size: 1.5em;
+	font-weight: 600;
+}
+
 .logo {
     width: 100%;
     display: flex;
